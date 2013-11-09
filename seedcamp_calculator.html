@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="description" content="The equity simulator makes understanding the impact of raising money for an early stage venture transparent and easy to grasp. It is intended to take some of the confusion out of raising angel or venture money." />
+<meta name="keywords" content="equity,simulation,dilution,tool,financing,venture,investment,dilution" />
+
+
+
+
+<!--[if lt IE 7]>
+    <link rel="stylesheet" type="text/css" href="css/ie6.css"/>
+    <![endif]-->
+<title>Seedcamp Calculator</title>
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/reset-min.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/jumbotron.css" />
+<link rel="stylesheet" type="text/css" href="css/carousel.css" />
+<link rel="stylesheet" type="text/css" href="css/grid.css" />
+<link rel="stylesheet" type="text/css" href="css/docco.css" />
+
+
+</head>
+<body>
+
+<script type="text/javascript">
+	$('#load').dialog({
+			width: 550,
+			height: 180,
+			modal: true, 
+			autoOpen: true,
+			draggable: true,
+			resizable: true,
+			title: 'Initializing tool...',
+			overlay: { backgroundColor: '#FFF', opacity: 0.6 }
+		});
+</script>
+<div class="wrap">
+  <div id="buttonCont">
+    
+  </div>
+  <h2>Seedcamp - Illustrating Founder and Investor Dilution</h2>
+  <div class="start" id="start">
+    <div class="intro">
+      <h3 id="introHead">Quick-Start Guide</h3>
+      <div id="introText">
+        <h4>Who's involved and how much do they own?</h4>
+        <p>Configure the "Founders" section to the left and hit the "Save" button.</p>
+        <h4>Start clicking around.</h4>
+        <p>Click on the <img src="images/info-blue.gif" alt="More Info" height="12" width="12" /> icons for definitions and information.</p>
+        <h4>Don't miss the Master Summary at the bottom</a>"</h4>
+      </div>
+    </div>
+    <div id="fSummary" class="fnd-sum">
+      <h4><span><a class="hlp" href="tips/founders.html" onclick="return helpTip(event, this);" style="float:right"><img src="images/info-blue.gif" alt="More Info" height="12" width="12" id="fndrsTip"/></a>Who are the Founders?</span></h4>
+      <form action="seed_calculator.html#" id="fndrs">
+        <p class="warn" id="founderWarning"> The total for all founders must equal 100% before you will be allowed to proceed. </p>
+        <button type="button" onclick="insertFounder();" title="Add founder" id="addBtn">Add Founder</button>
+        <button type="button" onclick="save(controller);" title="Save founders" id="saveBtn">Save</button>
+      </form>
+    </div>
+  </div>
+  <div class="round detail edit" id="round1">
+    <h3><span>Round 1: Seed or Series A Summary</span></h3>
+    <ul class="bdr-lst">
+    </ul>
+    <div class="rnd-val">
+      <h4><span>Round Details<a href="seed_calculator.html#" id="r1ValSave" onclick="edit(this, 'round1'); return false;">Save</a></span></h4>
+      <dl class="rnd-lst">
+        <dt><a class="hlp" href="tips/preMoney.html" onclick="return helpTip(event, this);"><img src="images/info.gif" alt="More Info" height="12" width="12" /></a><span>Pre-money Valuation</span></dt>
+        <dd id="r1Pre"> </dd>
+        <dt><span>Investment/Money Raised</span><a class="hlp" href="tips/inv.html" onclick="return helpTip(event, this);"><img src="images/info.gif" alt="More Info" height="12" width="12" id="r1invTip"/></a></dt>
+        <dd id="r1Inv">
+          <div class="rnd-opt" id="r1Opt">
+            <div>
+            </div>
+          </div>
+        </dd>
+        <dt><a class="hlp" href="tips/op.html" onclick="return helpTip(event, this);"><img src="images/info.gif" alt="More Info" height="12" width="12" id="r1opTip"/></a><span>Option Pool</span></dt>
+        <dd id="r1Emp"> </dd>
+      </dl>
+    </div>
+    <div id="r1Detail" class="rnd-dtl">
+ 
+    </div>
+    <div id="r1Summary" class="rnd-sum">
+      <div class="rnd-rsl">
+        <h4><span>Round Results</span></h4>
+        <dl class="rnd-rsl-fnd">
+          <dt>Founders <span id="r1FndAlert" class="hidden"><a class="hlp" href="tips/foundersAlert.html" onclick="return helpTip(event, this);"><img src="images/alert-grey-sm.gif" alt="More Info" height="12" width="12"/></a></span></dt>
+          <dd id="r1FndrsRes">&nbsp;</dd>
+        </dl>
+        <dl id="r1Res" class="rnd-rsl-oth">
+          <dt>Investors</dt>
+          <dd id="r1InvRes">&nbsp;</dd>
+          <dt>Option Pool</dt>
+          <dd id="r1EmpRes">&nbsp;</dd>
+        </dl>
+        <dl id="r1Post" class="rnd-rsl-pst">
+          <dt>Post-money Valuation <a class="hlp" href="tips/postMoney.html" onclick="return helpTip(event, this);"><img src="images/info-gray-sm.gif" alt="More Info" height="12" width="12" align="top" /></a></dt>
+          <dd id="r1PostRes">&nbsp;</dd>
+        </dl>
+      </div>
+    </div>
+    <br class="cls"/>
+  </div>
+  <div class="round detail edit" id="round2">
+    <h3><span>Round 2 Summary</span></h3>
+    <ul class="bdr-lst">
+   
+    </ul>
+    <div class="rnd-val">
+      <h4><span>Round Details<a href="seed_calculator.html#" id="r2ValSave" onclick="edit(this, 'round2'); return false;">Save</a></span></h4>
+      <dl class="rnd-lst">
+        <dt><a class="hlp" href="tips/preMoney.html" onclick="return helpTip(event, this);"><img src="images/info.gif" alt="More Info" height="12" width="12" id="r2pmTip"/></a><span>Pre-money Valuation</span></dt>
+        <dd id="r2Pre"> </dd>
+        <dt><span>Investment/Money Raised</span></span><a class="hlp" href="tips/inv.html" onclick="return helpTip(event, this);"><img src="images/info.gif" alt="More Info" height="12" width="12" id="r2invTip"/></a></dt>
+        <dd id="r2Inv">
+          <div class="rnd-opt" id="r2Opt">
+            <div>
+            </div>
+        </dd>
+        <dt><a class="hlp" href="tips/op.html" onclick="return helpTip(event, this);"><img src="images/info.gif" alt="More Info" height="12" width="12" id="r2opTip"/></a><span>Option Pool</span></dt>
+        <dd id="r2Emp"> </dd>
+      </dl>
+    </div>
+    <div id="r2Detail" class="rnd-dtl">
+  
+    </div>
+    <div id="r2Summary" class="rnd-sum">
+      <div class="rnd-rsl">
+        <h4><span>Fully Diluted</span></h4>
+        <dl class="rnd-rsl-fnd">
+          <dt>Founders <span id="r2FndAlert" class="hidden"><a class="hlp" href="tips/foundersAlert.html" onclick="return helpTip(event, this);"><img src="images/alert-grey-sm.gif" alt="More Info" height="12" width="12"/></a></span></dt>
+          <dd id="r2FndrsRes">&nbsp;</dd>
+        </dl>
+        <dl id="r2Res" class="rnd-rsl-oth">
+          <dt>Investors</dt>
+          <dd id="r2InvRes">&nbsp;</dd>
+          <dt>Option Pool</dt>
+          <dd id="r2EmpRes">&nbsp;</dd>
+        </dl>
+        <dl id="r2Post" class="rnd-rsl-pst">
+          <dt>Post-money Valuation <a class="hlp" href="tips/postMoney.html" onclick="return helpTip(event, this);"><img src="images/info-gray-sm.gif" alt="More Info" height="12" width="12" align="top" /></a></dt>
+          <dd id="r2PostRes">&nbsp;</dd>
+        </dl>
+      </div>
+    </div>
+    <br class="cls"/>
+  </div>
+  <div class="round detail edit" id="round3">
+    <h3><span>Round 3 Summary</span></h3>
+    <ul class="bdr-lst">
+    
+    </ul>
+    <div class="rnd-val">
+      <h4><span>Round Details<a href="seed_calculator.html#" id="r3ValSave" onclick="edit(this, 'round3'); return false;">Save</a></span></h4>
+      <dl class="rnd-lst">
+        <dt><a class="hlp" href="tips/preMoney.html" onclick="return helpTip(event, this);"><img src="images/info.gif" alt="More Info" height="12" width="12" id="r3pmTip"/></a><span>Pre-money Valuation</span></dt>
+        <dd id="r3Pre"> </dd>
+        <dt><span>Investment/Money Raised</span><a class="hlp" href="tips/inv.html" onclick="return helpTip(event, this);"><img src="images/info.gif" alt="More Info" height="12" width="12" id="r3invTip"/></a></dt>
+        <dd id="r3Inv"> </dd>
+        <dt><a class="hlp" href="tips/op.html" onclick="return helpTip(event, this);"><img src="images/info.gif" alt="More Info" height="12" width="12" id="r3opTip"/></a><span>Option Pool</span></dt>
+        <dd id="r3Emp"> </dd>
+      </dl>
+    </div>
+    <div id="r3Detail" class="rnd-dtl">
+      </div>
+    <div id="r3Summary" class="rnd-sum">
+      <div class="rnd-rsl">
+        <h4><span>Fully Diluted</span></h4>
+        <dl class="rnd-rsl-fnd">
+          <dt>Founders <span id="r3FndAlert" class="hidden"><a class="hlp" href="tips/foundersAlert.html" onclick="return helpTip(event, this);"><img src="images/alert-grey-sm.gif" alt="More Info" height="12" width="12"/></a></span></dt>
+          <dd id="r3FndrsRes">&nbsp;</dd>
+        </dl>
+        <dl id="r3Res" class="rnd-rsl-oth">
+          <dt>Investors</dt>
+          <dd id="r3InvRes">&nbsp;</dd>
+          <dt>Option Pool</dt>
+          <dd id="r3EmpRes">&nbsp;</dd>
+        </dl>
+        <dl id="r3Post" class="rnd-rsl-pst">
+          <dt>Post-money Valuation <a class="hlp" href="tips/postMoney.html" onclick="return helpTip(event, this);"><img src="images/info-gray-sm.gif" alt="More Info" height="12" width="12" align="top" /></a></dt>
+          <dd id="r3PostRes">&nbsp;</dd>
+        </dl>
+      </div>
+    </div>
+    <br class="cls"/>
+  </div>
+</div>
+<div class="footer"><p>&copy; 2013 -  Seedcamp</p></div>
+<div id="dialog"></div>
+<div id="infoDialog" class="infoDialog"></div>
+<div id="printDialog" class="infoDialog"></div>
+<div id="partnerDialog" class="infoDialog"></div>
+<div id="helpTip" onclick="cancelBubble(event);"><div style="text-align:center;"><img src="images/wait.gif" alt="Loading. Please wait." style="padding:2em;"/></div></div>
+
+<script src="js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.dimensions.pack.js"></script>
+<script type="text/javascript" src="js/ui.base.packed.js"></script>
+<script type="text/javascript" src="js/ui.dialog.js"></script>
+<script type="text/javascript" src="js/yahoo-dom-event.js" ></script>
+<script type="text/javascript" src="js/yahoo-min.js" ></script>
+<script type="text/javascript" src="js/event-min.js" ></script>
+<script type="text/javascript" src="js/dragdrop-min.js" ></script>
+<script type="text/javascript" src="js/slider-min.js" ></script>
+<script type="text/javascript" src="js/toolUtil.js"></script>
+<script type="text/javascript" src="js/Tool.js"></script>
+<script type="text/javascript" src="js/toolInit.js"></script>
+<script type="text/javascript" src="js/yahoo-dom-event.js" ></script>
+<script type="text/javascript" src="js/yahoo-min.js" ></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+</body>
+</html>
